@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
@@ -82,6 +84,59 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void keyReleased(KeyEvent e) {
                     }
                 });
+
+        passwordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+
+                        char[] currentPassword = passwordInputField.getPassword();
+                        char[] newPasswordArray = new char[currentPassword.length + 1];
+
+                        System.arraycopy(currentPassword, 0, newPasswordArray, 0, currentPassword.length);
+
+                        newPasswordArray[currentPassword.length] = e.getKeyChar();
+
+                        currentState.setPassword(Arrays.toString(newPasswordArray));
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
+    repeatPasswordInputField.addKeyListener(
+            new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    SignupState currentState = signupViewModel.getState();
+
+                    char[] currentPassword = repeatPasswordInputField.getPassword();
+                    char[] newPasswordArray = new char[currentPassword.length + 1];
+
+                    System.arraycopy(currentPassword, 0, newPasswordArray, 0, currentPassword.length);
+
+                    newPasswordArray[currentPassword.length] = e.getKeyChar();
+
+                    currentState.setRepeatPassword(Arrays.toString(newPasswordArray));
+                    signupViewModel.setState(currentState);
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                }
+            });
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -90,6 +145,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(repeatPasswordInfo);
         this.add(buttons);
     }
+
+
 
     /**
      * React to a button click that results in evt.
