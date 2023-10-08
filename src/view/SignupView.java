@@ -97,8 +97,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         System.arraycopy(currentPassword, 0, newPasswordArray, 0, currentPassword.length);
 
                         newPasswordArray[currentPassword.length] = e.getKeyChar();
+                        String passwordStringVersion = new String(newPasswordArray);
 
-                        currentState.setPassword(Arrays.toString(newPasswordArray));
+                        currentState.setPassword(passwordStringVersion);
                         signupViewModel.setState(currentState);
                     }
 
