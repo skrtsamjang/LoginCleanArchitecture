@@ -112,39 +112,40 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 });
 
-    repeatPasswordInputField.addKeyListener(
-            new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    SignupState currentState = signupViewModel.getState();
+        repeatPasswordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
 
-                    char[] currentPassword = repeatPasswordInputField.getPassword();
-                    char[] newPasswordArray = new char[currentPassword.length + 1];
+                        char[] currentPassword = repeatPasswordInputField.getPassword();
+                        char[] newPasswordArray = new char[currentPassword.length + 1];
 
-                    System.arraycopy(currentPassword, 0, newPasswordArray, 0, currentPassword.length);
+                        System.arraycopy(currentPassword, 0, newPasswordArray, 0, currentPassword.length);
 
-                    newPasswordArray[currentPassword.length] = e.getKeyChar();
+                        newPasswordArray[currentPassword.length] = e.getKeyChar();
+                        String passwordStringVersion = new String(newPasswordArray);
 
-                    currentState.setRepeatPassword(Arrays.toString(newPasswordArray));
-                    signupViewModel.setState(currentState);
-                }
+                        currentState.setRepeatPassword(passwordStringVersion);
+                        signupViewModel.setState(currentState);
+                    }
 
-                @Override
-                public void keyPressed(KeyEvent e) {
-                }
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
 
-                @Override
-                public void keyReleased(KeyEvent e) {
-                }
-            });
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(buttons);
+            this.add(title);
+            this.add(usernameInfo);
+            this.add(passwordInfo);
+            this.add(repeatPasswordInfo);
+            this.add(buttons);
     }
 
 
